@@ -4,6 +4,7 @@ API used for FootData application
 ## API deployed on Heroku at:
 https://foot-data-api.herokuapp.com/
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability)
+[![Build Status](https://travis-ci.org/MulanSales/foot-data-api.svg?branch=master)](https://travis-ci.org/MulanSales/foot-data-api)
 
-[![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/codeclimate/codeclimate/test_coverage)
+
+[![Coverage Status](https://coveralls.io/repos/github/MulanSales/foot-data-api/badge.svg?branch=master)](https://coveralls.io/github/MulanSales/foot-data-api?branch=master)
