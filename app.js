@@ -15,8 +15,10 @@ app.get('/', (req, res, next) => {
 
 });
 
-var server = app.listen(process.env.PORT || 3000, () => {
-    console.log(`Running server on port ${process.env.PORT || 3000}`);
+const PORT = process.env.PORT || 3000;
+
+var server = app.listen(PORT, () => {
+    console.log(`Listening server on port ${PORT}`);
 });
 
 module.exports = {app, server};
