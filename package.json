@@ -13,7 +13,8 @@
     "generate-lcov": "nyc report --reporter=text-lcov > lcov.info",
     "coveralls-coverage": "coveralls < lcov.info",
     "codeclimate-coverage": "codeclimate-test-reporter < lcov.info",
-    "coverage": "nyc npm test && npm run generate-lcov && npm run coveralls-coverage && npm run codeclimate-coverage"
+    "coverage": "nyc npm test && npm run generate-lcov && npm run coveralls-coverage && npm run codeclimate-coverage",
+    "start-dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -31,12 +32,14 @@
   },
   "homepage": "https://github.com/MulanSales/foot-data-api#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.17.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "coveralls": "^3.0.7",
     "mocha": "^6.2.1",
+    "nodemon": "^1.19.4",
     "nyc": "^14.1.1",
     "supertest": "^4.0.2"
   }

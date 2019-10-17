@@ -1,6 +1,10 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
+
+// BodyParser: Parses requests to json format
+app.use(bodyParser.json());
 
 app.get('/', (req, res, next) => {
     try {
