@@ -4,7 +4,7 @@
   "description": "API used for FootDAta application",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,13 @@
   "bugs": {
     "url": "https://github.com/MulanSales/foot-data-api/issues"
   },
-  "homepage": "https://github.com/MulanSales/foot-data-api#readme"
+  "homepage": "https://github.com/MulanSales/foot-data-api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.1",
+    "supertest": "^4.0.2"
+  }
 }

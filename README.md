@@ -1,2 +1,2 @@
 # foot-data-api
-API used for FootDAta application
+API used for FootData application
