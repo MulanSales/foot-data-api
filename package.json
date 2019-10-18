@@ -1,7 +1,7 @@
 {
   "name": "foot-data-api",
   "version": "1.0.0",
-  "description": "API used for FootDAta application",
+  "description": "API used for FootData application",
   "main": "app.js",
   "engines": {
     "node": "8.10.0",
@@ -33,11 +33,13 @@
   "homepage": "https://github.com/MulanSales/foot-data-api#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-swaggerize-ui": "^1.1.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "coveralls": "^3.0.7",
+    "express-swagger-generator": "^1.1.15",
     "mocha": "^6.2.1",
     "nodemon": "^1.19.4",
     "nyc": "^14.1.1",
