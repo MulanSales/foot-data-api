@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const compression = require('compression');
 
 const testRoutes = require('./routes/test-route');
 
@@ -10,7 +11,6 @@ const swaggerUi = require('express-swaggerize-ui');
 
 // BodyParser: Parses requests to json format
 app.use(bodyParser.json());
-
 
 const PORT = process.env.PORT || 3000;
 
@@ -50,6 +50,8 @@ app.use('/api-docs.json', (req, res) => {
 app.use('/api-docs', swaggerUi());
 
 app.use('/v1', testRoutes);
+
+app.use(compression());
 
 var server = app.listen(PORT, () => {
     console.log(`Listening server on port ${PORT}`);
