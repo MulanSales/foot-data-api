@@ -3,7 +3,7 @@ API used for FootData application
 
 ## API deployed on Heroku at:
 
-https://foot-data-api.herokuapp.com/api-docs/
+https://foot-data-api.herokuapp.com/api-docs
 
 > ### TravisCI
 
