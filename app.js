@@ -1,60 +1,58 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const compression = require('compression');
+const mongoose = require('mongoose');
+const swaggerUi = require('express-swaggerize-ui');
 
-const testRoutes = require('./routes/test-route');
+const graphqlHttp = require('express-graphql');
+const graphqlSchema = require('./graphql/schema');
+const graphqlResolver = require('./graphql/resolvers');
+
+const { swaggerFileGenerator } = require('./util/swagger-generator');
+
+const generalRoutes = require('./routes/general-route');
 
 const app = express();
 
-//const expressSwagger = require('express-swagger-generator')(app);
-const swaggerUi = require('express-swaggerize-ui');
+const PORT = process.env.PORT || 3000;
+const MONGODB_URI =`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@nodecourse-tnt0c.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}`;
+
+let server;
 
 // BodyParser: Parses requests to json format
 app.use(bodyParser.json());
 
-const PORT = process.env.PORT || 3000;
+app.use('/v1', generalRoutes);
+/**
+ * Graphql endpoint
+ * @route POST /graphql
+ * @returns {Info} 200 - An object with informations of the application 
+ * @returns {Error}  default - Unexpected error
+ */
+app.use('/graphql', graphqlHttp({
+    schema: graphqlSchema,
+    rootValue: graphqlResolver,
+    graphiql: true 
+}));
 
-//let swaggerOptions = {
-    //swaggerDefinition: {
-        //info: {
-            //description: 'This is a sample server',
-            //title: 'Swagger',
-            //version: '1.0.0',
-        //},
-        //host: `localhost:${PORT}`,
-        //basePath: '/v1',
-        //produces: [
-            //"application/json",
-            //"application/xml"
-        //],
-        //schemes: ['http', 'https'],
-        //securityDefinitions: {
-            //JWT: {
-                //type: 'apiKey',
-                //in: 'header',
-                //name: 'Authorization',
-                //description: "",
-            //}
-        //}
-    //},
-    //basedir: __dirname,
-    //files: ['./routes/*.js']
-//};
+app.use(compression());
 
-//expressSwagger(swaggerOptions);
+swaggerFileGenerator(app, PORT, process.env.HOST);
 
 app.use('/api-docs.json', (req, res) => {
-    res.json(require('./swagger/v1/api-docs.json'));
+    res.json(require('./api-docs.json'));
 });
 
 app.use('/api-docs', swaggerUi());
 
-app.use('/v1', testRoutes);
-
-app.use(compression());
-
-var server = app.listen(PORT, () => {
-    console.log(`Listening server on port ${PORT}`);
-});
+mongoose.connect(MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true})
+    .then(() => {
+        server = app.listen(PORT, () => {
+            console.log(`Listening server on port ${PORT}`);
+        });
+    })
+    .catch(err => {
+        console.log(err);
+    });
 
 module.exports = {app, server};
