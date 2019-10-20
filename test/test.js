@@ -1,27 +1,23 @@
 const request = require('supertest');
 const { expect } = require('chai');
 
-const { app, server } = require('../app');
+const { app } = require('../app');
 
-describe('GET /', function () {
+describe('General Controller', function () {
 
-    it('should responde with a json with a valid message', function (done) {
+    it('should responde with an info with a valid application name field', function (done) {
 
         request(app)
-            .get('/')
+            .get('/v1/info')
             .expect('Content-Type', /json/)
             .expect(200)
             .then(response => {
-                expect(response.body).to.have.property('message').equals('Configuring CI/CD');
+                console.log(response);
+                expect(response.body).to.have.property('applicationName').equals('FootData');
             });
 
         done();
 
     });
-
-    after(function (done) {
-        server.close();
-        done();
-    })
 
 });

@@ -17,8 +17,6 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI =`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@nodecourse-tnt0c.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}`;
 
-let server;
-
 // BodyParser: Parses requests to json format
 app.use(bodyParser.json());
 
@@ -47,7 +45,7 @@ app.use('/api-docs', swaggerUi());
 
 mongoose.connect(MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
-        server = app.listen(PORT, () => {
+        const server = app.listen(PORT, () => {
             console.log(`Listening server on port ${PORT}`);
         });
     })
@@ -55,4 +53,4 @@ mongoose.connect(MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true})
         console.log(err);
     });
 
-module.exports = {app, server};
+module.exports = { app };
