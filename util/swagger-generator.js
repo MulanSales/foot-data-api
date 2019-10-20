@@ -1,6 +1,6 @@
 const path = require('path');
 
-const swaggerFileGenerator = (app, port, host) => {
+const swaggerFileGenerator = (app, host) => {
     const expressSwagger = require('express-swagger-generator')(app);
 
     let swaggerOptions = {
@@ -10,7 +10,7 @@ const swaggerFileGenerator = (app, port, host) => {
                 title: 'Swagger',
                 version: '1.0.0',
             },
-            host: `${host}:${port}`,
+            host: `${host}`,
             basePath: '/v1',
             produces: [
                 "application/json",

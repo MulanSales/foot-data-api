@@ -35,7 +35,7 @@ app.use('/graphql', graphqlHttp({
 
 app.use(compression());
 
-swaggerFileGenerator(app, PORT, process.env.HOST);
+swaggerFileGenerator(app, process.env.HOST);
 
 app.use('/api-docs.json', (req, res) => {
     res.json(require('./api-docs.json'));
