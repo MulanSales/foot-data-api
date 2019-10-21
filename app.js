@@ -13,7 +13,8 @@ const graphqlResolver = require('./graphql/resolvers');
 const { swaggerFileGenerator } = require('./util/swagger-generator');
 
 // Routers
-const generalRoutes = require('./routes/general-route');
+const generalRoutes = require('./routes/general-routes');
+const authRoutes = require('./routes/auth-routes');
 
 // Express App Initialization
 const app = express();
@@ -25,8 +26,19 @@ const MONGODB_URI =`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_
 // BodyParser: Parses requests to json format
 app.use(bodyParser.json());
 
+// Add headers for CORS errors
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader(
+        'Access-Control-Allow-Methods',
+        'OPTIONS, GET, POST, PUT, PATCH, DELETE'
+    );
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+});
 // General Controller Router
 app.use('/v1', generalRoutes);
+app.use('/v1', authRoutes);
 
 /**
  * Graphql endpoint
