@@ -1,20 +1,33 @@
-const { getResource } = require('../util/football-api-request');
+const FootBallAPI = require('../util/FootBallAPI');
 const Info = require('../models/Info');
+const ErrHandling = require('../models/ErrorHandling');
 
 /**
  * Get general informations about the application
  * @route GET /info
+ * @group general
  * @returns {Info} 200 - An object with informations of the application 
  * @returns {Error}  default - Unexpected error
  */
 exports.getInfo = async (req, res, next) => {
 
-    const info = await Info.findOne();
+    try {
+        const info = await Info.findOne(); 
+        
+        if (!info) {
+            ErrHandling.handleError('Resource not found', 404);
+        }
+        const player = await FootBallAPI.getResource(['v2', 'players', 44]);
+   
+        info.examplePlayer = player ? player : null;
+    
+        res.status(200).json(info);
+        return info;
 
-    const player = await getResource(['v2', 'players', 44]);
+    } catch(err) {
+        ErrHandling.handleAsyncError(err, next);
+        return err;
+    }
 
-    info.examplePlayer = player;
-
-    return res.status(200).json(info);
 };
 
