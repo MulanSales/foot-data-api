@@ -43,7 +43,7 @@ exports.signup = async (req, res, next) => {
         const result = await user.save();
         res.status(201).json({
             message: 'User created with success',
-            userId: result._id
+            userId: result._id.toString()
         });
 
         return result;
@@ -86,7 +86,7 @@ exports.getToken = async (req, res, next) => {
             ErrorHandling.handleError('A user with this email could not be found', 401);
         };
 
-        const isUserValid = bcrypt.compare(password, user.password);
+        const isUserValid = await bcrypt.compare(password, user.password);
         if (!isUserValid) {
             ErrorHandling.handleError('Password is incorrect', 401);
         };

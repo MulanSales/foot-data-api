@@ -17,9 +17,14 @@ exports.getInfo = async (req, res, next) => {
         if (!info) {
             ErrHandling.handleError('Resource not found', 404);
         }
-        const player = await FootBallAPI.getResource(['v2', 'players', 44]);
+
+        const players = [];
+        for (const [index, id] of [44, 56, 72].entries()) {
+            const player = await FootBallAPI.getResource(['v2', 'players', id]);
+            players.push(player);
+        };
    
-        info.examplePlayer = player ? player : null;
+        info.players = players.length > 0 ? players : null;
     
         res.status(200).json(info);
         return info;
@@ -28,6 +33,5 @@ exports.getInfo = async (req, res, next) => {
         ErrHandling.handleAsyncError(err, next);
         return err;
     }
-
 };
 

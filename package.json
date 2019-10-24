@@ -9,7 +9,7 @@
   },
   "scripts": {
     "debug": "node --nolazy --inspect-brk=3000 app.js",
-    "test": "export NODE_ENV=test && nyc mocha ./test/*.js --timeout 20000 --exit",
+    "test": "export NODE_ENV=test JWT_SECRET_KEY=testsecretkey && nyc mocha ./test/*.js --timeout 30000 --exit",
     "start": "node app.js",
     "generate-lcov": "nyc report --reporter=text-lcov > lcov.info",
     "coveralls-coverage": "coveralls < lcov.info",

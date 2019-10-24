@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
  * @property {string} applicationName.required
  * @property {string} createdBy.required
  * @property {string} description.required
- * @property {object} examplePlayer
+ * @property {object} players 
  */
 const infoSchema = new Schema({
     applicationName: {
@@ -21,8 +21,8 @@ const infoSchema = new Schema({
         type: String,
         required: true
     },
-    examplePlayer: {
-        type: Object,
+    players: {
+        type: Array,
         required: false
     }
 });
