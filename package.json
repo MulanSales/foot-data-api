@@ -8,6 +8,7 @@
     "npm": "6.11.3"
   },
   "scripts": {
+    "debug": "node --nolazy --inspect-brk=3000 app.js",
     "test": "export NODE_ENV=test && nyc mocha ./test/*.js --timeout 20000 --exit",
     "start": "node app.js",
     "generate-lcov": "nyc report --reporter=text-lcov > lcov.info",

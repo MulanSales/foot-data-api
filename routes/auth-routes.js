@@ -27,20 +27,33 @@ router.put('/signup', [
         .isLength({min: 8})
         .withMessage('Please enter a valid password.')
         .custom((value, {req}) => {
-              const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+            const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,}$/;
               if (!re.test(value)) {
-                  return Promise.reject('Password must contain at least one letter and one special character.');
+                  return Promise.reject('Password must contain at least one letter, one upper case letter, one special character and one number');
               }
+              return true;
         }),
     body('confirmPassword')
+        .trim()
         .custom((value, {req}) => {
-            if (value !== req.body.password) {
-                return Promise.reject(`Password and confirmation password doesn't match`);
+            if (value.toString() !== req.body.password.toString()) {
+                throw new Error(`Password and confirmation password doesn't match`);
             }
+            return true;
         }),
     body('name', 'Please enter a valid name')
         .isString()
-        .isEmpty()
+        .isLength({max: 50})
 ], authController.signup);
+
+//POST /v1/token
+router.post('/token', [
+    body('email')
+        .isEmail()
+        .trim(),
+    body('password', 'Password does not match format criteria')
+        .trim()
+        .isLength({min: 8})
+], authController.getToken);
 
 module.exports = router;
