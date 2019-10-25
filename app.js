@@ -11,6 +11,7 @@ const graphqlResolver = require('./graphql/resolvers');
 
 // Local Imports
 const { swaggerFileGenerator } = require('./util/swagger-generator');
+const path = require('path');
 
 // Routers
 const generalRoutes = require('./routes/general-routes');
@@ -36,9 +37,13 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
 });
+
 // General Controller Router
 app.use('/v1', generalRoutes);
 app.use('/v1', authRoutes);
+
+// Setting a public folder to serve content
+app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
 /**
  * Graphql endpoint

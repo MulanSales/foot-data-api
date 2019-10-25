@@ -70,7 +70,7 @@ exports.signup = async (req, res, next) => {
  * Gets Json web token for authenticated must tasks 
  * @route POST /token
  * @group authentication
- * @param {GetToken.model} request.body.required
+ * @param {GetTokenRequest.model} request.body.required
  * @returns {GetTokenResponse} 200 - An object with token for authenticated tasks
  * @returns {Error}  default - Unexpected error
  */
@@ -80,7 +80,6 @@ exports.getToken = async (req, res, next) => {
     const password = req.body.password;
 
     try {
-
         const user = await User.findOne({email: email});
         if (!user) {
             ErrorHandling.handleError('A user with this email could not be found', 401);
