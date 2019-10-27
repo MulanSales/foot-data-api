@@ -6,12 +6,12 @@ const Schema = mongoose.Schema;
  * @property {string} applicationName.required
  * @property {string} createdBy.required
  * @property {string} description.required
- * @property {array} sections.required
- * @property {array} functionalities.required
- * @property {array} customerReviews.required
- * @property {array} competitions.required
- * @property {array} about.required
- * @property {array} players 
+ * @property {[string]} sections.required
+ * @property {[string]} functionalities.required
+ * @property {[object]} customerReviews.required
+ * @property {[string]} competitions.required
+ * @property {[string]} about.required
+ * @property {[object]} players 
  */
 const infoSchema = new Schema({
     applicationName: {

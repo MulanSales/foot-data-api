@@ -16,6 +16,8 @@ const path = require('path');
 // Routers
 const generalRoutes = require('./routes/general-routes');
 const authRoutes = require('./routes/auth-routes');
+const playerRoutes = require('./routes/player-routes');
+const competitionsRoutes = require('./routes/competition-routes');
 
 // Express App Initialization
 const app = express();
@@ -38,19 +40,26 @@ app.use((req, res, next) => {
     next();
 });
 
-// General Controller Router
+// Controllers Routers
 app.use('/v1', generalRoutes);
 app.use('/v1', authRoutes);
+app.use('/v1', playerRoutes);
+app.use('/v1', competitionsRoutes);
 
 // Setting a public folder to serve content
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
+
+/**
+ * @typedef Error
+ * @property {string} code.required
+ */
 
 /**
  * Graphql endpoint
  * @route POST /graphql
  * @group graphql
  * @param {Graphql.model} request.body.required
- * @returns {Error}  default - Unexpected error
+ * @returns {Error} default - Unexpected error
  */
 app.use('/v1/graphql', graphqlHttp({
     schema: graphqlSchema,

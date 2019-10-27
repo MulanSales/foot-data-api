@@ -16,7 +16,7 @@ const User = require('../models/User');
  * @route PUT /signup
  * @group authentication
  * @param {User.model} request.body.required
- * @returns {SignupResponse} 200 - An object with informations of the application 
+ * @returns {SignupResponse.model} 200 - An object with informations of the application 
  * @returns {Error}  default - Unexpected error
  */
 exports.signup = async (req, res, next) => {
