@@ -1,7 +1,9 @@
 const FootBallAPI = require('../util/FootBallAPI');
 const ErrHandling = require('../models/ErrorHandling');
+const Competition = require('../models/Competition');
+
 /**
- * Sign ups a new user to the application
+ * Gets a competition given an id or name
  * @route GET /competitions
  * @group foot data
  * @param {number} id.query
@@ -45,7 +47,6 @@ exports.getCompetitionById = async (req, res, next) => {
     const id = req.params.id;
 
     try {
-
         const result = await getCompetitionById(id);
 
         res.status(200).json(result);
@@ -55,6 +56,58 @@ exports.getCompetitionById = async (req, res, next) => {
         return err;
     };
 };
+
+/**
+ * Get a competition's complete summary
+ * @route GET /competition
+ * @group foot data
+ * @param {number} id.query
+ * @returns {Error}  default - Unexpected error
+ */
+exports.getCompleteCompetition = async (req, res, next) => {
+
+    const id = req.query.id || req.params.id;
+
+    try {
+        const competition = await FootBallAPI.getResource(['v2', 'competitions', id]);
+
+        const matches = await FootBallAPI.getResource(['v2', 'competitions', id, 'matches']);
+
+        const standings = await FootBallAPI.getResource(['v2', 'competitions', id, 'standings']);
+
+        const result = new Competition(competition, matches, standings);
+
+        res.status(200).json(result);
+
+    }
+    catch (err) {
+        ErrHandling.handleAsyncError(err, next);
+        return err;
+    }
+};
+
+/**
+ * Gets Macthes given a competition's id number
+ * @route GET /competitions/matches
+ * @group foot data
+ * @param {number} id.query
+ * @returns {Error}  default - Unexpected error
+ */
+exports.getCompetitionMatchesById = async (req, res, next) => {
+    const id = req.query.id || req.params.id;
+
+    try {
+        const result = await FootBallAPI.getResource(['v2', 'competitions', id, 'matches']);
+        
+        return res.status(200).json(result);
+    }
+    catch (err) {
+        ErrHandling.handleAsyncError(err, next);
+        return err;
+    }
+};
+
+// Local utility functions
 
 const getCompetitionById = async id => {
     const result = await FootBallAPI.getResource(['v2', 'competitions', id]);

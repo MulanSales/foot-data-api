@@ -5,6 +5,16 @@ const CompetitonsController = require('../controllers/competitions');
 
 const router = express.Router();
 
+// GET v1/competition
+router.get('/competition', [
+
+], CompetitonsController.getCompleteCompetition);
+
+// GET v1/competition
+router.get('/competition:id', [
+
+], CompetitonsController.getCompleteCompetition);
+
 // GET v1/competitions
 router.get('/competitions', [
     query('name')
@@ -23,5 +33,16 @@ router.get('/competitions/:id',[
     param('id')
         .isNumeric()
 ], CompetitonsController.getCompetitionById);
+
+// GET v1/competitions/id/matches
+router.get('/competitions/matches', [
+
+], CompetitonsController.getCompetitionMatchesById);
+
+// GET v1/competitions/id/matches
+router.get('/competitions/:id/matches', [
+
+], CompetitonsController.getCompetitionMatchesById);
+
 
 module.exports = router;
