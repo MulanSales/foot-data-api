@@ -11,7 +11,7 @@ router.get('/competition', [
 ], CompetitonsController.getCompleteCompetition);
 
 // GET v1/competition
-router.get('/competition:id', [
+router.get('/competition/:id', [
 
 ], CompetitonsController.getCompleteCompetition);
 
